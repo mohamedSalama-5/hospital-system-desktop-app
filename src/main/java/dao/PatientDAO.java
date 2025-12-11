@@ -46,7 +46,7 @@ public class PatientDAO {
         String sql = "UPDATE patient "+
                      "SET f_name = ? , l_name = ? , national_id = ? , birth_date = ? , gender = ? , email = ? , phone_number = ? , address = ? , blood_type = ? , admission_date = ? , discharge_date = ? , room_id = ? " +
                 "WHERE national_id = ?";
-        int row =0;
+        int effictedRow =0;
         try(Connection connection = DBConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1,newData.getFirstName());
@@ -66,11 +66,11 @@ public class PatientDAO {
                 statement.setInt(12, newData.getRoomId());
             }
             statement.setString(13,nationalId);
-             row=statement.executeUpdate();
+            effictedRow=statement.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
         }
-            return (row > 0)? newData : null;
+            return (effictedRow > 0)? newData : null;
     }
     public Patient findByNationalId(String nationalId) {
         String sql = "SELECT id, f_name , l_name , national_id , birth_date , gender , email , phone_number , address , blood_type , admission_date , discharge_date , room_id FROM patient " +
@@ -108,7 +108,6 @@ public class PatientDAO {
             PreparedStatement statement = connection.prepareStatement(sql)){
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-
                 list.add(mapResultSet(resultSet));
             }
         }catch (SQLException e){e.printStackTrace();}
@@ -132,6 +131,22 @@ public class PatientDAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public Integer getIdByNationalId(String nationalId){
+        String sql = " SELECT id from patient WHERE national_id = ? ";
+        Integer patientId = null;
+        try(Connection connection = DBConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1,nationalId);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                patientId = result.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return patientId;
     }
 
     private Patient mapResultSet(ResultSet resultSet) throws SQLException{

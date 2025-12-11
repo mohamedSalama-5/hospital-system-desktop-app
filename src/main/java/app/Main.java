@@ -1,5 +1,4 @@
 package main.java.app;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -28,7 +27,7 @@ public class Main extends Application {
         LocalDate date = LocalDate.now();
 
         PatientDAO dao = new PatientDAO();
-     Patient patient = new Patient("mohamed","salama","4545454545","","male", Date.valueOf(date) ,"01222222","egypt","o+",null, null, null);
+     Patient patient = new Patient("mohamed","salama","4545454545","","male", Date.valueOf(date) ,"01222222","egypt","o+",Date.valueOf("2025-12-01"), null, null);
 //        Patient newPatient = dao.insert(patient);
 //        System.out.println(newPatient.toString());
         boolean deleted = dao.delete("4545454545");

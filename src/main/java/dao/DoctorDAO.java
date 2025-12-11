@@ -124,6 +124,11 @@ public class DoctorDAO {
         return row >0;
     }
 
+    public Integer getIdByName(String nationalId){
+        Integer doctorId  = null;
+        return doctorId;
+    }
+
     public void setStatement(PreparedStatement statement , Doctor doctor)throws SQLException{
         statement.setString(1, doctor.getFirstName());
         statement.setString(2, doctor.getLastName());
