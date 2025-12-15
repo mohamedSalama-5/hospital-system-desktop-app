@@ -103,13 +103,11 @@ public class DoctorDAO {
                 );
                 list.add(doctor);
             }
-
         }catch (SQLException e){
             e.printStackTrace();
         }
         return list;
     }
-
 
     public boolean delete(String nationalId){
         String sql = "DELETE FROM doctor WHERE national_id = ?";
@@ -124,8 +122,20 @@ public class DoctorDAO {
         return row >0;
     }
 
-    public Integer getIdByName(String nationalId){
+    public Integer getIdByName(String fullName){
         Integer doctorId  = null;
+        String sql = " SELECT id from doctor WHERE CONCAT(f_name, ' ', l_name)  iLIKE ?";
+        String searchName = "%"+fullName+"%";
+        try(Connection connection = DBConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1,searchName);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                doctorId = result.getInt("id");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
         return doctorId;
     }
 

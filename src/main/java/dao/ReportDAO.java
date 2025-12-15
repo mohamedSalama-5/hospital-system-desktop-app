@@ -10,7 +10,6 @@ import java.util.List;
 
 public class ReportDAO {
     // add report
-
     public Report insert(Report report , String patientNationalId , String doctorName){
         PatientDAO patientDAO = new PatientDAO();
         DoctorDAO doctorDAO  = new DoctorDAO();
@@ -111,9 +110,5 @@ public class ReportDAO {
         }
         return list;
     }
-
-
-
-
-
+    
 }

@@ -46,7 +46,7 @@ public class PatientDAO {
         String sql = "UPDATE patient "+
                      "SET f_name = ? , l_name = ? , national_id = ? , birth_date = ? , gender = ? , email = ? , phone_number = ? , address = ? , blood_type = ? , admission_date = ? , discharge_date = ? , room_id = ? " +
                 "WHERE national_id = ?";
-        int effictedRow =0;
+        int effectedRow =0;
         try(Connection connection = DBConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1,newData.getFirstName());
@@ -66,11 +66,11 @@ public class PatientDAO {
                 statement.setInt(12, newData.getRoomId());
             }
             statement.setString(13,nationalId);
-            effictedRow=statement.executeUpdate();
+            effectedRow=statement.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
         }
-            return (effictedRow > 0)? newData : null;
+            return (effectedRow > 0)? newData : null;
     }
     public Patient findByNationalId(String nationalId) {
         String sql = "SELECT id, f_name , l_name , national_id , birth_date , gender , email , phone_number , address , blood_type , admission_date , discharge_date , room_id FROM patient " +
@@ -113,7 +113,7 @@ public class PatientDAO {
         }catch (SQLException e){e.printStackTrace();}
         return list;
     }
-
+    // search by name
     public List<Patient> searchByName(String name){
         List<Patient> list = new ArrayList<>();
         String sql ="SELECT * FROM patient WHERE f_name iLIKE ? OR l_name iLIKE ? ORDER BY admission_date ";
@@ -133,6 +133,7 @@ public class PatientDAO {
         return list;
     }
 
+    //return patientId by nationalId
     public Integer getIdByNationalId(String nationalId){
         String sql = " SELECT id from patient WHERE national_id = ? ";
         Integer patientId = null;
@@ -148,6 +149,27 @@ public class PatientDAO {
         }
         return patientId;
     }
+
+
+    public String getPatientNameByNationalId(String patientNationalId){
+        String patientName =null;
+        String sql = "SELECT f_name , l_name FROM patient WHERE national_id = ? ";
+        try(Connection connection = DBConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)){
+
+            statement.setString(1,patientNationalId);
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                patientName = result.getString("f_name")+" "+result.getString("l_name");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return patientName;
+    }
+
+
+
 
     private Patient mapResultSet(ResultSet resultSet) throws SQLException{
         return new Patient(

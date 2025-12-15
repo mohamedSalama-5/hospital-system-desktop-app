@@ -48,6 +48,7 @@ public class Patient extends Person{
     public Integer getRoomId(){return roomId;}
 
     //setter
+
     public void setGender(String gender){this.gender = gender;}
     public void setAddress(String address){this.address = address;}
     public void setBloodType(String bloodType){this.bloodType = bloodType;}

@@ -10,8 +10,8 @@ public class Bill {
     private transient String patientNationalId;
 
     // for add Bill
-    public Bill(double totalAmount,String status,int patientId){
-            this(0,totalAmount,status,patientId);
+    public Bill(double totalAmount,String status){
+            this(0,totalAmount,status,0);
     }
 
     // for get the bill from DB
