@@ -7,11 +7,11 @@ public class Clinic {
     // not in DB
     private String departmentName;
 
-    public Clinic(String name,int departmentId){
+    public Clinic(String name,String departmentName){
         this.name = name;
-        this.departmentId = departmentId;
+        this.departmentName= departmentName;
     }
-    // edit Clinic in DB
+    // from DB
     public Clinic(int clinicId, String name, int departmentId ){
         this.clinicId = clinicId;
         this.name = name;

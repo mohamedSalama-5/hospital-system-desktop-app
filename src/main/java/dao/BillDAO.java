@@ -15,7 +15,7 @@ public class BillDAO {
         PatientDAO patientDAO = new PatientDAO();
         Integer patientId = patientDAO.getIdByNationalId(patientNationalId);
         bill.setPatientId(patientId);
-        String sql = "INSERT bill ( total_amount , status , date , patient_id )" +
+        String sql = "INSERT INTO bill ( total_amount , status , date , patient_id )" +
                 "VALUES(?,?,?,?)";
         try(Connection connection = DBConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
