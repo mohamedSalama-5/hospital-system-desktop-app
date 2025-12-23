@@ -12,24 +12,6 @@ import java.util.List;
 
 public class ClinicDAO {
 
-    // add
-    public Clinic insert(Clinic clinic ){
-        DepartmentDAO departmentDAO = new DepartmentDAO();
-        String sql = "INSERT INTO clinic (name , department_id )" +
-                "VALUES(?,?)";
-        int affectedRows = 0;
-        int departmentId =  departmentDAO.getIdByName(clinic.getDepartmentName());
-        try(Connection connection = DBConnection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setString(1,clinic.getName());
-            statement.setInt(2,departmentId);
-            affectedRows = statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return (affectedRows > 0)?clinic:null;
-    }
-
     // get all
     public List<Clinic> getAll(){
         List<Clinic> list = new ArrayList<>();
@@ -53,21 +35,6 @@ public class ClinicDAO {
         return list;
     }
 
-    // delete
-    public boolean delete(String clinicName){
-        int clinicId = getClinicId(clinicName);
-        String sql = " DELETE FROM clinic WHERE id = ?";
-        int affectedRows = 0;
-        try(Connection connection = DBConnection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1,clinicId);
-            affectedRows = statement.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-        return affectedRows>0;
-    }
-
     public Integer getClinicId(String clinicName){
         Integer clinicId = null;
         String sql = " SELECT id FROM clinic WHERE name = ?";
@@ -83,8 +50,6 @@ public class ClinicDAO {
         }
         return clinicId;
     }
-
-
 
 
 }

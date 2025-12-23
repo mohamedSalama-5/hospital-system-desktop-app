@@ -47,7 +47,7 @@ public class AppointmentController {
 
         btnSearchAppointments.setOnAction(e -> {
             String keyword = txtSearchAppointments.getText();
-            tableAppointments.setItems(FXCollections.observableArrayList(appointmentDAO.getAppointmentByNationalId(keyword)));
+            tableAppointments.setItems(FXCollections.observableArrayList(appointmentDAO.searchAppointments(keyword)));
         });
 
         // add

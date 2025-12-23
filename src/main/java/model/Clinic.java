@@ -7,16 +7,6 @@ public class Clinic {
     // not in DB
     private String departmentName;
 
-    public Clinic(String name,String departmentName){
-        this.name = name;
-        this.departmentName= departmentName;
-    }
-    // from DB
-    public Clinic(int clinicId, String name, int departmentId ){
-        this.clinicId = clinicId;
-        this.name = name;
-        this.departmentId = departmentId;
-    }
     // view the Clinic in GUI
     public Clinic(int clinicId , String name,int departmentId, String departmentName){
         this.clinicId = clinicId;
@@ -34,13 +24,4 @@ public class Clinic {
     public void setDepartmentId(int departmentId){this.departmentId = departmentId;}
     public void setDepartmentName(String departmentName){this.departmentName = departmentName;}
 
-    @Override
-    public String toString(){
-        return "Clinic{ "+
-                "clinicId="+clinicId+
-                ", name='"+name+'\''+
-                ", departmentId="+departmentId+
-                ", departmentName='"+departmentName+'\''+
-                " }";
-    }
 }

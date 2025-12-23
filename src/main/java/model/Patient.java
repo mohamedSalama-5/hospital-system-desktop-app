@@ -10,19 +10,7 @@ public class Patient extends Person{
     private java.sql.Date  dischargeDate;
     private Integer roomId;
 
-    public Patient(String firstName,String lastName,String nationalId,
-            String email, String phoneNumber,java.sql.Date  birthDate,
-            String gender ,String address ,String bloodType ,
-                   java.sql.Date  admissionDate ,java.sql.Date  dischargeDate ,Integer roomId  ){
-        super( firstName, lastName, nationalId, email,  phoneNumber, birthDate);
 
-        this.gender = gender;
-        this.address = address;
-        this.bloodType = bloodType;
-        this.admissionDate = admissionDate;
-        this.dischargeDate = dischargeDate;
-        this.roomId = roomId;
-    }
     public Patient(String firstName, String lastName, String nationalId,
                    String email, String phoneNumber, Date birthDate,
                    String gender, String address, String bloodType,
@@ -68,17 +56,5 @@ public class Patient extends Person{
     public void setDischargeDate(Date dischargeDate){this.dischargeDate = dischargeDate;}
     public void setRoomId(int roomId){this.roomId = roomId;}
 
-    @Override
-    public String toString(){
-        return "Patient{ " +
-                super.toString() +
-                ", gender='" + gender + '\'' +
-                ", address='" + address + '\'' +
-                ", bloodType='" + bloodType + '\'' +
-                ", admissionDate='" + admissionDate + '\'' +
-                ", dischargeDate='" + dischargeDate + '\'' +
-                ", roomId=" + roomId +
-                " }";
-    }
 
 }

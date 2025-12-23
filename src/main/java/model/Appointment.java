@@ -15,14 +15,6 @@ public class Appointment {
         this.status = status;
 
     }
-    // edit appointment in DB
-    public Appointment(int appointmentId,java.sql.Date appointmentDate , String status, int patientId , int clinicId){
-        this.appointmentId = appointmentId;
-        this.appointmentDate = appointmentDate;
-        this.status = status;
-        this.patientId = patientId;
-        this.clinicId = clinicId;
-    }
     // view in GUI
     public Appointment(int appointmentId,java.sql.Date appointmentDate , String status,  String clinicName){
         this.appointmentId = appointmentId;
@@ -48,16 +40,6 @@ public class Appointment {
     public void setClinicName(String clinicName){this.clinicName = clinicName;}
     public void setPatientName(String patientName){this.patientName = patientName;}
 
-    @Override
-    public String toString(){
-        return "Appointment{ "+
-                "appointmentId="+appointmentId+
-                ", appointmentDate='"+appointmentDate+'\''+
-                ", status='"+status+'\''+
-                ", patientId="+patientId+
-                ", clinicId="+clinicId+
-                ", clinicName='"+clinicName+'\''+
-                " }";
-    }
+
 
 }

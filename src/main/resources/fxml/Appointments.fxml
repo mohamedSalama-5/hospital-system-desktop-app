@@ -14,7 +14,7 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="main.java.controller.AppointmentController"
             prefWidth="800" prefHeight="600">
     <children>
-        <!-- الهيدر -->
+
         <HBox fx:id="HBoxHydrobarAppointments" alignment="CENTER_LEFT" prefHeight="75.0" style="-fx-background-color: #1E73BE;" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
             <children>
                 <Label fx:id="LabelHydrobarHospitalManagementSystemAppointments" text="Hospital Management System" textFill="WHITE">
@@ -31,14 +31,14 @@
             </padding>
         </HBox>
 
-        <!-- العنوان -->
+
         <Label fx:id="LabelAppointments" layoutX="30" layoutY="100" text="Appointments">
             <font>
                 <Font name="System Bold" size="28"/>
             </font>
         </Label>
 
-        <!-- شريط البحث -->
+
         <HBox layoutX="30" layoutY="150" prefHeight="50" spacing="10" AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="30">
             <children>
                 <TextField fx:id="txtSearchAppointments" prefHeight="40" promptText="Search Appointments" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 1; -fx-background-color: #ffffff; -fx-border-color: #dadada;" HBox.hgrow="ALWAYS">
@@ -57,7 +57,7 @@
             </children>
         </HBox>
 
-        <!-- جدول المواعيد -->
+
         <TableView fx:id="tableAppointments" layoutY="220" AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="30" AnchorPane.topAnchor="200" AnchorPane.bottomAnchor="100">
             <columns>
                 <TableColumn fx:id="colAppointmentID" text="Appointment ID">
@@ -91,7 +91,7 @@
             </columnResizePolicy>
         </TableView>
 
-        <!-- أزرار التحكم -->
+
         <HBox alignment="CENTER" layoutY="540" prefHeight="50" spacing="25" AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="30" AnchorPane.bottomAnchor="15">
             <children>
                 <Button fx:id="btnAddAppointment" text="Add" prefHeight="40" prefWidth="110" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 1; -fx-border-color: #dadada; -fx-background-color: #ffffff;">
