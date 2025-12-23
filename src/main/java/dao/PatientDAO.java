@@ -42,36 +42,81 @@ public class PatientDAO {
             return patient;
     }
 
-    public Patient updateByNationalId(String nationalId, Patient newData) {
-        String sql = "UPDATE patient "+
-                     "SET f_name = ? , l_name = ? , national_id = ? , birth_date = ? , gender = ? , email = ? , phone_number = ? , address = ? , blood_type = ? , admission_date = ? , discharge_date = ? , room_id = ? " +
-                "WHERE national_id = ?";
-        int effectedRow =0;
-        try(Connection connection = DBConnection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setString(1,newData.getFirstName());
-            statement.setString(2,newData.getLastName());
-            statement.setString(3,newData.getNationalId());
-            statement.setDate(4,newData.getBirthDate());
-            statement.setString(5,newData.getGender());
-            statement.setString(6,newData.getEmail());
-            statement.setString(7,newData.getPhoneNumber());
-            statement.setString(8,newData.getAddress());
-            statement.setString(9,newData.getBloodType());
-            statement.setDate(10,newData.getAdmissionDate());
-            statement.setDate(11,newData.getDischargeDate());
-            if (newData.getRoomId() == null) {
-                statement.setNull(12, Types.INTEGER);
-            } else {
+    public Patient updateById(int id, Patient newData) {
+        String sql = "UPDATE patient SET " +
+                "f_name = ?, l_name = ?, national_id = ?, birth_date = ?, gender = ?, " +
+                "email = ?, phone_number = ?, address = ?, blood_type = ?, admission_date = ?, " +
+                "discharge_date = ?, room_id = ? " +
+                "WHERE id = ?";
+
+        int affectedRows = 0;
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, newData.getFirstName());
+            statement.setString(2, newData.getLastName());
+            statement.setString(3, newData.getNationalId());
+
+            // Nullable columns
+            if (newData.getBirthDate() != null)
+                statement.setDate(4, newData.getBirthDate());
+            else
+                statement.setNull(4, Types.DATE);
+
+            if (newData.getGender() != null)
+                statement.setString(5, newData.getGender());
+            else
+                statement.setNull(5, Types.VARCHAR);
+
+            if (newData.getEmail() != null)
+                statement.setString(6, newData.getEmail());
+            else
+                statement.setNull(6, Types.VARCHAR);
+
+            if (newData.getPhoneNumber() != null)
+                statement.setString(7, newData.getPhoneNumber());
+            else
+                statement.setNull(7, Types.VARCHAR);
+
+            if (newData.getAddress() != null)
+                statement.setString(8, newData.getAddress());
+            else
+                statement.setNull(8, Types.VARCHAR);
+
+            if (newData.getBloodType() != null)
+                statement.setString(9, newData.getBloodType());
+            else
+                statement.setNull(9, Types.VARCHAR);
+
+            if (newData.getAdmissionDate() != null)
+                statement.setDate(10, newData.getAdmissionDate());
+            else
+                statement.setNull(10, Types.DATE);
+
+            if (newData.getDischargeDate() != null)
+                statement.setDate(11, newData.getDischargeDate());
+            else
+                statement.setNull(11, Types.DATE);
+
+            if (newData.getRoomId() != null)
                 statement.setInt(12, newData.getRoomId());
-            }
-            statement.setString(13,nationalId);
-            effectedRow=statement.executeUpdate();
-        }catch (SQLException e){
+            else
+                statement.setNull(12, Types.INTEGER);
+
+            // WHERE
+            statement.setInt(13, id);
+            affectedRows = statement.executeUpdate();
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-            return (effectedRow > 0)? newData : null;
+
+        return affectedRows > 0 ? newData : null;
     }
+
+
+
     public Patient findByNationalId(String nationalId) {
         String sql = "SELECT id, f_name , l_name , national_id , birth_date , gender , email , phone_number , address , blood_type , admission_date , discharge_date , room_id FROM patient " +
                 "WHERE national_id = ?";
@@ -188,5 +233,6 @@ public class PatientDAO {
                 resultSet.getInt("room_id")
         );
     }
+
 
 }

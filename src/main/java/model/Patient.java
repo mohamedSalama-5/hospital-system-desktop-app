@@ -23,7 +23,19 @@ public class Patient extends Person{
         this.dischargeDate = dischargeDate;
         this.roomId = roomId;
     }
+    public Patient(String firstName, String lastName, String nationalId,
+                   String email, String phoneNumber, Date birthDate,
+                   String gender, String address, String bloodType,
+                   Date dischargeDate, Integer roomId) {
 
+        super(firstName, lastName, nationalId, email, phoneNumber, birthDate);
+        this.gender = gender;
+        this.address = address;
+        this.bloodType = bloodType;
+        this.admissionDate = null;
+        this.dischargeDate = dischargeDate;
+        this.roomId = roomId;
+    }
 
     public Patient(int id,String firstName,String lastName,String nationalId,
                    String email, String phoneNumber,java.sql.Date  birthDate,

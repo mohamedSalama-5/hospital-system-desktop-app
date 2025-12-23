@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.java.controller.AddPatientController"
+            prefWidth="500" prefHeight="600">
+
+    <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+
+        <Label text="First Name"/>
+        <TextField fx:id="txtFirstName" promptText="First Name"/>
+
+        <Label text="Last Name"/>
+        <TextField fx:id="txtLastName" promptText="Last Name"/>
+
+        <Label text="National ID"/>
+        <TextField fx:id="txtNationalId" promptText="National ID"/>
+
+        <Label text="Email"/>
+        <TextField fx:id="txtEmail" promptText="Email"/>
+
+        <Label text="Phone"/>
+        <TextField fx:id="txtPhone" promptText="Phone"/>
+
+        <Label text="Birth Date"/>
+        <DatePicker fx:id="dpBirthDate"/>
+
+        <Label text="Gender"/>
+        <ComboBox fx:id="cbGender"/>
+
+        <Label text="Address"/>
+        <TextField fx:id="txtAddress" promptText="Address"/>
+
+        <Label text="Blood Type"/>
+        <TextField fx:id="txtBloodType" promptText="Blood Type"/>
+
+        <Label text="Discharge Date"/>
+        <DatePicker fx:id="dpDischargeDate"/>
+
+        <Label text="Room ID"/>
+        <TextField fx:id="txtRoomId" promptText="Room ID"/>
+
+        <Button text="Save" onAction="#savePatient" prefHeight="40" prefWidth="100"/>
+
+    </VBox>
+</AnchorPane>

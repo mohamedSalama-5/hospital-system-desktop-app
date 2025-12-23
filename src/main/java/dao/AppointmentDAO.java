@@ -46,37 +46,36 @@ public class AppointmentDAO {
     }
 
     // update appointment
-    public Appointment updateByPatientNationalId(String nationalId , Appointment newAppointment){
-        PatientDAO patientDAO = new PatientDAO();
+    public Appointment updateAppointment(Appointment newAppointment){
+        String sql = "UPDATE appointment SET appointment_date = ?, status = ? WHERE id = ?";
         int effectedRow = 0;
-        String sql = " UPDATE appointment " +
-                "SET appointment_date = ? , status = ?  "+
-                "WHERE patient_id = ? ";
-        Integer patientId = patientDAO.getIdByNationalId(nationalId);
+
         try(Connection connection = DBConnection.getConnection();
-           PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setDate(1,newAppointment.getAppointmentDate());
-            statement.setString(2,newAppointment.getStatus());
-            statement.setInt(3,patientId);
+            PreparedStatement statement = connection.prepareStatement(sql)){
+
+            statement.setDate(1, newAppointment.getAppointmentDate());
+            statement.setString(2, newAppointment.getStatus());
+            statement.setInt(3, newAppointment.getId());
+
             effectedRow = statement.executeUpdate();
-        }catch (SQLException e){
+
+        } catch (SQLException e){
             e.printStackTrace();
         }
-        return  (effectedRow > 0)?newAppointment:null;
+
+        return (effectedRow > 0) ? newAppointment : null;
     }
 
     // delete appointment
 
-    public boolean delete(String patientNationalId ){
-        PatientDAO patientDAO = new PatientDAO();
+    public boolean deleteByAppointmentId(int appointmentId) {
+        String sql = "DELETE FROM appointment WHERE id = ?";
         int effectedRow = 0;
-        String sql = "DELETE FROM appointment WHERE patient_id = ? ";
-        Integer patientId = patientDAO.getIdByNationalId(patientNationalId);
         try(Connection connection = DBConnection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1,patientId);
+            PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, appointmentId);
             effectedRow = statement.executeUpdate();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return effectedRow > 0;
@@ -88,55 +87,71 @@ public class AppointmentDAO {
         PatientDAO patientDAO = new PatientDAO();
         List<Appointment> list = new ArrayList<>();
         Integer patientId = patientDAO.getIdByNationalId(patientNationalId);
-        String sql = "SELECT a.*, c.name AS clinic_name " +
+        if (patientId == null) return list;
+
+        String sql = "SELECT a.id, a.appointment_date, a.status, " +
+                "c.name AS clinic_name, " +
+                "p.f_name AS patient_f_name, p.l_name AS patient_l_name " +
                 "FROM appointment a " +
                 "JOIN clinic c ON a.clinic_id = c.id " +
                 "JOIN patient p ON a.patient_id = p.id " +
                 "WHERE a.patient_id = ?";
+
         try(Connection connection = DBConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1,patientId);
+
+            statement.setInt(1, patientId);
             ResultSet resultSet = statement.executeQuery();
+
             while (resultSet.next()){
+                String patientName = resultSet.getString("patient_f_name") + " " + resultSet.getString("patient_l_name");
                 Appointment appointment = new Appointment(
                         resultSet.getInt("id"),
                         resultSet.getDate("appointment_date"),
                         resultSet.getString("status"),
-                        resultSet.getString("clinicName")
+                        resultSet.getString("clinic_name")
                 );
+                appointment.setPatientName(patientName);
                 list.add(appointment);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return list;
     }
+
 
     // get all appointment
     public List<Appointment> getAllAppointment(){
         List<Appointment> list = new ArrayList<>();
-        String sql = "SELECT a.appointment_date, a.status, " +
+        String sql = "SELECT a.id, a.appointment_date, a.status, " +
                 "c.name AS clinic_name, " +
                 "p.f_name AS patient_f_name, p.l_name AS patient_l_name " +
                 "FROM appointment a " +
                 "JOIN clinic c ON a.clinic_id = c.id " +
                 "JOIN patient p ON a.patient_id = p.id";
         try(Connection connection = DBConnection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql)){
-               ResultSet resultSet = statement.executeQuery();
-               while (resultSet.next()){
-                   Appointment appointment = new Appointment(
-                           resultSet.getInt("id"),
-                           resultSet.getDate("appointment_date"),
-                           resultSet.getString("status"),
-                           resultSet.getString("clinicName")
-                   );
-                   list.add(appointment);
-               }
-        }catch (SQLException e){
+            PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                String patientName = resultSet.getString("patient_f_name") + " " + resultSet.getString("patient_l_name");
+                Appointment appointment = new Appointment(
+                        resultSet.getInt("id"),
+                        resultSet.getDate("appointment_date"),
+                        resultSet.getString("status"),
+                        resultSet.getString("clinic_name")
+                );
+                appointment.setPatientName(patientName);
+                list.add(appointment);
+            }
+        } catch (SQLException e){
             e.printStackTrace();
         }
-            return list;
+        return list;
     }
+
 
 }

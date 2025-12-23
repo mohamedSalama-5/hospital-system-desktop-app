@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.java.controller.EditPatientController"
+            prefWidth="450" prefHeight="600">
+
+    <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+
+        <Label text="Edit Patient" style="-fx-font-size: 20; -fx-font-weight: bold;" />
+
+        <GridPane hgap="10" vgap="10">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="35"/>
+                <ColumnConstraints percentWidth="65"/>
+            </columnConstraints>
+
+            <Label text="First Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtFirstName" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Last Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtLastName" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="National ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtNationalId" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Label text="Email:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtEmail" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+            <Label text="Phone:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtPhone" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+            <Label text="Birth Date:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="dpBirthDate" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+            <Label text="Gender:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cbGender" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+            <Label text="Address:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtAddress" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+            <Label text="Blood Type:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtBloodType" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+
+            <Label text="Discharge Date:" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="dpDischargeDate" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+
+            <Label text="Room ID:" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtRoomId" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <HBox spacing="15" alignment="CENTER">
+            <Button text="Update" onAction="#updatePatient" prefWidth="100"/>
+            <Button text="Cancel" onAction="#close" prefWidth="100"/>
+        </HBox>
+
+    </VBox>
+</AnchorPane>

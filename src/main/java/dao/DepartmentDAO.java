@@ -30,21 +30,6 @@ public class DepartmentDAO {
         }
         return (affectedRows > 0)?department : null;
     }
-    // updateWorkHours
-    public boolean updateWorkHours(String departmentName , int workHours){
-        int affectedRows = 0;
-        String sql = "UPDATE department SET work_hours = ? WHERE name = ?";
-        try(Connection connection = DBConnection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1,workHours);
-            statement.setString(2,departmentName);
-            affectedRows = statement.executeUpdate();
-
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-        return affectedRows >0;
-    }
 
     // delete
     public boolean delete(String departmentName){
